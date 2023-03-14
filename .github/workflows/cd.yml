@@ -1,0 +1,32 @@
+name: Deploy for stage server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  git_tag:
+    runs-on: ubuntu-latest
+
+  publish:
+    needs: git_tag
+    runs-on: ubuntu-latest
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: install ssh keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+      - name: connect to server
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+      - name: pull main branch
+        run: cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit
+      - name: restart docker compose
+        run: docker compose down && docker compose up -d
+      - name: cleanup
+        run: rm -rf ~/.ssh
