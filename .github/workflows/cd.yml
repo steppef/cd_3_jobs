@@ -3,7 +3,7 @@ name: Deploy for stage server
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
 #  git_tag:
