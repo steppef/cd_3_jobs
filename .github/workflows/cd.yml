@@ -6,15 +6,32 @@ on:
       - main
 
 jobs:
-  git_tag:
-    runs-on: ubuntu-latest
+#  git_tag:
+#    runs-on: ubuntu-latest
 
-  publish:
-    needs: git_tag
+  build:
+#    needs: git_tag
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:latest
 
   deploy:
-    needs: publish
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: install ssh keys
@@ -25,7 +42,8 @@ jobs:
       - name: connect to server
         run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
       - name: pull main branch
-        run: cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit
+#        run: cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && exit
+        run: cd ${{ secrets.WORK_DIR }} && docker-compose pull && exit
       - name: restart docker compose
         run: docker compose down && docker compose up -d
       - name: cleanup
