@@ -40,7 +40,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: connect to server
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} && pwd
+        run: ssh -t -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
       - name: check pwd
         run: pwd
       - name: pull main branch
