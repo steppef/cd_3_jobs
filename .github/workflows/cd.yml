@@ -8,6 +8,11 @@ on:
 jobs:
 #  git_tag:
 #    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#      - name: Set git tag
+#        run:
 
   build:
 #    needs: git_tag
@@ -28,7 +33,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:23-01-01.1
+          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ github.sha }}-${{ github.run_number }}
 
   deploy:
     needs: build
