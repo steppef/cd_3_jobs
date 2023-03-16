@@ -45,7 +45,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-#          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.TAG_VERSION }}
+#          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.TAG_VERSION }}s
           tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.GIT_LATEST_TAG }}
 
   deploy:
