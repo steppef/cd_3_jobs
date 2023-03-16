@@ -15,10 +15,10 @@ jobs:
         uses: actions/checkout@v3
       - name: Set git tag
 #        run: git tag ${{ env.TAG_VERSION }}
-        run: git tag v4.0.1
+        run: git tag $(git describe)
       - name: push to remote
-#        run: git push origin ${{ env.TAG_VERSION }}s
-        run: git push origin v4.0.1
+#        run: git push origin ${{ env.TAG_VERSION }}ss
+        run: git push origin $(git describe)
 
   build:
     needs: git_tag
