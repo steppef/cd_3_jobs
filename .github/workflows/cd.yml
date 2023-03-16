@@ -29,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup latest tag as env
-        run: echo "GIT_LATEST_TAG=$(echo $(git tag | sort -V | tail -1))" >> $GITHUB_ENV
+        run: git fetch --tags && echo "GIT_LATEST_TAG=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
       - name: Test tag
         run: echo $GIT_LATEST_TAG
       - name: Login to Docker Hub
