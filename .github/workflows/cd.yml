@@ -17,7 +17,7 @@ jobs:
         run: git fetch --tags
       - name: Set git tag
 #        run: git tag ${{ env.TAG_VERSION }}
-        run: git tag -a $(( $(git tag | sort -V | tail -1) + 1)) -m "prev $(git tag | sort -V | tail -1)"
+        run: git tag $(( $(git tag | sort -V | tail -1) + 1))
       - name: push to remote
 #        run: git push origin ${{ env.TAG_VERSION }}sss
         run: git push origin $(git tag | sort -V | tail -1)
