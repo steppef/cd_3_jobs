@@ -40,7 +40,7 @@ jobs:
           file: ./Dockerfile
           push: true
 #          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.TAG_VERSION }}
-          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:v4.0.1
+          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:$(git describe)
 
   deploy:
     needs: build
