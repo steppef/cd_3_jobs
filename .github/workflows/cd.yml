@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Fetch tags from remote
+        run: git fetch --tags
       - name: Set git tag
 #        run: git tag ${{ env.TAG_VERSION }}
         run: git tag $(git describe)
@@ -52,7 +54,7 @@ jobs:
 #          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
 #          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 #      - name: connect to server
-#        run: ssh -t -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}sss
+#        run: ssh -t -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}ssss
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.8
         with:
