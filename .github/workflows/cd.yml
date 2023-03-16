@@ -52,7 +52,7 @@ jobs:
 #          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
 #          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 #      - name: connect to server
-#        run: ssh -t -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}ss
+#        run: ssh -t -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}sss
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.8
         with:
