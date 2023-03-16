@@ -6,10 +6,9 @@ on:
       - master
 
 jobs:
-  env:
-    TAG_VERSION: v3.3.3
-
   git_tag:
+    env:
+      TAG_VERSION: v3.3.3
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
