@@ -7,8 +7,6 @@ on:
 
 jobs:
   git_tag:
-#    env:
-#      TAG_VERSION: ${{ github.event.repository.updated_at}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,10 +14,8 @@ jobs:
       - name: Fetch tags from remote
         run: git fetch --tags
       - name: Set git tag
-#        run: git tag ${{ env.TAG_VERSION }}
         run: git tag $(( $(git tag | sort -V | tail -1) + 1))
       - name: push to remote
-#        run: git push origin ${{ env.TAG_VERSION }}sss
         run: git push origin $(git tag | sort -V | tail -1)
 
   build:
@@ -45,20 +41,12 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-#          tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.TAG_VERSION }}s
           tags: ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.GIT_LATEST_TAG }}
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-#      - name: install ssh keys
-#        run: |
-#          install -m 600 -D /dev/null ~/.ssh/id_rsa
-#          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-#          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-#      - name: connect to server
-#        run: ssh -t -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}ssss
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.8
         with:
