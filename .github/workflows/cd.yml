@@ -46,6 +46,25 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.GIT_LATEST_TAG }}
             ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:latest
+#      - name: Build and push service 1
+#        uses: docker/build-push-action@v4
+#        with:
+#          context: .
+#          file: ./src/serviceName-1/Dockerfile
+#          push: true
+#          tags: |
+#            ${{ secrets.DOCKERHUB_USER }}/serviceName-1:${{ env.GIT_LATEST_TAG }}
+#            ${{ secrets.DOCKERHUB_USER }}/serviceName-1:latest
+#
+#      - name: Build and push service 2
+#        uses: docker/build-push-action@v4
+#        with:
+#          context: .
+#          file: ./src/serviceName-2/Dockerfile
+#          push: true
+#          tags: |
+#            ${{ secrets.DOCKERHUB_USER }}/serviceName-2:${{ env.GIT_LATEST_TAG }}
+#            ${{ secrets.DOCKERHUB_USER }}/serviceName-2:latest
 
   deploy:
     needs: build
