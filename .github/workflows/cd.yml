@@ -26,6 +26,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Run step if any file(s) in the docs folder change
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
       - name: Setup latest tag as env
         run: git fetch --tags && echo "GIT_LATEST_TAG=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
       - name: Echo tag
