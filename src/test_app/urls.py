@@ -4,10 +4,10 @@ from django.urls import path
 
 
 def test_view(request):
-    return HttpResponse('<h1>cdcdc asdasdasd tes msg</h1>')
+    return HttpResponse('<h1>Salem!!</h1>')
 
 
 urlpatterns = [
-    path('adminnn/', admin.site.urls),
+    path('adminnnss/', admin.site.urls),
     path('test/', test_view)
 ]
