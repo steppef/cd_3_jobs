@@ -5,6 +5,8 @@ on:
     branches:
       - master
 
+#23.03.incr
+
 jobs:
   git_tag:
     runs-on: ubuntu-latest
@@ -26,7 +28,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup latest tag as env
         run: git fetch --tags && echo "GIT_LATEST_TAG=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
-      - name: Test tag
+      - name: Echo tag
         run: echo $GIT_LATEST_TAG
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -54,8 +56,13 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          password: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          script: cd ${{ secrets.WORK_DIR }} && docker-compose -f docker-compose.prod.yml pull && docker-compose -f docker-compose.prod.yml down && docker-compose -f docker-compose.prod.yml up -d && exit
+          script: | 
+            cd ${{ secrets.WORK_DIR }} 
+            docker-compose -f docker-compose.prod.yml pull 
+            docker-compose -f docker-compose.prod.yml down 
+            docker-compose -f docker-compose.prod.yml up -d 
+            exit
       - name: cleanup
         run: rm -rf ~/.ssh
