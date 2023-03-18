@@ -26,17 +26,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Get changed files in the docs folder
-        id: changed-files-specific
-        uses: tj-actions/changed-files@v35
-        with:
-#          files: docs/*.{js,html}  # Alternatively using: `docs/**` or `docs`
-          files: src/**  # Alternatively using: `docs/**` or `docs`
-      - name: Run step if any file(s) in the docs folder change
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
-        run: |
-          echo "One or more files in the docs folder has changed."
-          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+#      - name: Get changed files in the docs folder
+#        id: changed-files-specific
+#        uses: tj-actions/changed-files@v35
+#        with:
+##          files: docs/*.{js,html}  # Alternatively using: `docs/**` or `docs`
+#          files: src/**  # Alternatively using: `docs/**` or `docs`
+#      - name: Run step if any file(s) in the docs folder change
+#        if: steps.changed-files-specific.outputs.any_changed == 'true'
+#        run: |
+#          echo "One or more files in the docs folder has changed."
+#          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
       - name: Setup latest tag as env
         run: git fetch --tags && echo "GIT_LATEST_TAG=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
       - name: Echo tag
@@ -57,15 +57,22 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.GIT_LATEST_TAG }}
             ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:latest
-#      - name: Build and push service 1
-#        uses: docker/build-push-action@v4
-#        with:
-#          context: .
-#          file: ./src/serviceName-1/Dockerfile
-#          push: true
-#          tags: |
-#            ${{ secrets.DOCKERHUB_USER }}/serviceName-1:${{ env.GIT_LATEST_TAG }}
-#            ${{ secrets.DOCKERHUB_USER }}/serviceName-1:latest
+      - name: Get changed files in the verme folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+#          files: docs/*.{js,html}  # Alternatively using: `docs/**` or `docs`
+          files: src/**  # Alternatively using: `docs/**` or `docs`
+      - name: Build and push verme service
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./src/serviceName-1/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USER }}/serviceName-1:${{ env.GIT_LATEST_TAG }}
+            ${{ secrets.DOCKERHUB_USER }}/serviceName-1:latest
 #
 #      - name: Build and push service 2
 #        uses: docker/build-push-action@v4
