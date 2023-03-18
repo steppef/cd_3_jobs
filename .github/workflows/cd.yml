@@ -68,11 +68,12 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./src/serviceName-1/Dockerfile
+#          file: ./src/serviceName-1/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USER }}/serviceName-1:${{ env.GIT_LATEST_TAG }}
-            ${{ secrets.DOCKERHUB_USER }}/serviceName-1:latest
+            ${{ secrets.DOCKERHUB_USER }}/testverme:${{ env.GIT_LATEST_TAG }}
+            ${{ secrets.DOCKERHUB_USER }}/testverme:latest
 #
 #      - name: Build and push service 2
 #        uses: docker/build-push-action@v4
