@@ -61,12 +61,12 @@ jobs:
             ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:latest
 
       - name: Get changed files in the verme folder
-        id: changed-files-specific
+        id: changed-files-in-verme
         uses: tj-actions/changed-files@v35
         with:
           files: src/verme/**
       - name: Build and push verme service
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        if: steps.changed-files-in-verme.outputs.any_changed == 'true'
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -78,12 +78,12 @@ jobs:
             ${{ secrets.DOCKERHUB_USER }}/testverme:latest
 
       - name: Get changed files in the vision folder
-        id: changed-files-specific
+        id: changed-files-in-vision
         uses: tj-actions/changed-files@v35
         with:
           files: src/vision/**
       - name: Build and push service vision
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        if: steps.changed-files-in-vision.outputs.any_changed == 'true'
         uses: docker/build-push-action@v4
         with:
           context: .
