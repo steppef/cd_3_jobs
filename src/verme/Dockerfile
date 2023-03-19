@@ -1,2 +1,2 @@
 FROM alpine
-CMD ["echo", "It-is-verme-service"]
+CMD ["echo", "It-is-verme-service!!!"]
