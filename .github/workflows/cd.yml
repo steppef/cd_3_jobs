@@ -41,11 +41,13 @@ jobs:
         run: git fetch --tags && echo "GIT_LATEST_TAG=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
       - name: Echo tag
         run: echo $GIT_LATEST_TAG
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Build and push
@@ -57,33 +59,39 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:${{ env.GIT_LATEST_TAG }}
             ${{ secrets.DOCKERHUB_USER }}/cd_3_jobs:latest
+
       - name: Get changed files in the verme folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v35
         with:
-#          files: docs/*.{js,html}  # Alternatively using: `docs/**` or `docs`
-          files: src/**  # Alternatively using: `docs/**` or `docs`
+          files: src/verme/**
       - name: Build and push verme service
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         uses: docker/build-push-action@v4
         with:
           context: .
 #          file: ./src/serviceName-1/Dockerfile
-          file: ./Dockerfile
+          file: ./src/verme/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/testverme:${{ env.GIT_LATEST_TAG }}
             ${{ secrets.DOCKERHUB_USER }}/testverme:latest
-#
-#      - name: Build and push service 2
-#        uses: docker/build-push-action@v4
-#        with:
-#          context: .
-#          file: ./src/serviceName-2/Dockerfile
-#          push: true
-#          tags: |
-#            ${{ secrets.DOCKERHUB_USER }}/serviceName-2:${{ env.GIT_LATEST_TAG }}
-#            ${{ secrets.DOCKERHUB_USER }}/serviceName-2:latest
+
+      - name: Get changed files in the vision folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: src/vision/**
+      - name: Build and push service vision
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./src/vision/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USER }}/testvision:${{ env.GIT_LATEST_TAG }}
+            ${{ secrets.DOCKERHUB_USER }}/testvision:latest
 
   deploy:
     needs: build
