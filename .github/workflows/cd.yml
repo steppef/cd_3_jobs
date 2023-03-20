@@ -5,7 +5,6 @@ on:
     branches:
       - master
 
-#incr.20.03.2023
 
 jobs:
   git_tag:
@@ -59,7 +58,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-#          file: ./src/serviceName-1/Dockerfile
           file: ./src/verme/Dockerfile
           push: true
           tags: |
