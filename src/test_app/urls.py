@@ -4,7 +4,7 @@ from django.urls import path
 
 
 def test_view(request):
-    return HttpResponse('<h1>Salem, Alem</h1>')
+    return HttpResponse('<h1>Salem, Alem !!!</h1>')
 
 
 urlpatterns = [
