@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'books',
 ]
 
 MIDDLEWARE = [
@@ -75,10 +77,17 @@ WSGI_APPLICATION = 'test_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'postgres',
+        'PORT': '5432',
+        # 'ATOMIC_REQUESTS': True
     }
 }
+
+# ATOMIC_REQUESTS = True
 
 
 # Password validation
