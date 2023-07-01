@@ -32,7 +32,7 @@ jobs:
          - uses: actions/download-artifact@v3
            with:
             name: cd_3_jobs_django
-            path: /tmp/cd_3_jobs_django.tar
+            path: /tmp
 
          - name: Load image
            run: |
