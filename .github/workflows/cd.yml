@@ -39,6 +39,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        - uses: actions/checkout@v3
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v2
 
@@ -54,7 +55,7 @@ jobs:
               docker image ls -a
 
         - name: migration_check
-          run: docker run --rm cd_3_jobs_django python manage.py migrate --fake
+          run: docker-compose run django python manage.py migrate --fake
 #  git_tag:
 #    runs-on: ubuntu-latest
 #    steps:
