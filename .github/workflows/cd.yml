@@ -14,9 +14,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: build and up
         run: docker-compose up -d
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and export
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          tags: myimage:latest
+          outputs: type=docker,dest=/tmp/cd_3_jobs_django.tar
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -29,18 +39,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-         - uses: actions/download-artifact@v3
-           with:
-            name: cd_3_jobs_django
-            path: /tmp
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v2
 
-         - name: Load image
-           run: |
+        - name: Download artifacs
+          uses: actions/download-artifact@v3
+          with:
+           name: cd_3_jobs_django
+           path: /tmp
+
+        - name: Load image
+          run: |
               docker load --input /tmp/cd_3_jobs_django.tar
               docker image ls -a
 
-         - name: migration_check
-           run: docker-compose run django python manage.py migrate --fake
+        - name: migration_check
+          run: docker-compose run django python manage.py migrate --fake
 #  git_tag:
 #    runs-on: ubuntu-latest
 #    steps:
