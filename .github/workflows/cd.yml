@@ -54,7 +54,7 @@ jobs:
               docker image ls -a
 
         - name: migration_check
-          run: docker-compose run django python manage.py migrate --fake
+          run: docker run --rm django python manage.py migrate --fake
 #  git_tag:
 #    runs-on: ubuntu-latest
 #    steps:
