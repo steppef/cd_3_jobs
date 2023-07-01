@@ -31,7 +31,7 @@ jobs:
     steps:
          - uses: actions/download-artifact@v3
            with:
-            name: cd_django
+            name: cd_3_jobs_django
             path: /tmp/cd_3_jobs_django.tar
 
          - name: Load image
