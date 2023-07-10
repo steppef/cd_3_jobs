@@ -33,4 +33,4 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
-      run: echo "Hello ${{ inputs.rollback_commit }} {{ inputs.service_name }}"
+      run: echo "Hello ${{ inputs.rollback_commit }} ${{ inputs.service_name }}"
