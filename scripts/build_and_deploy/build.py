@@ -45,7 +45,7 @@ class Git:
 
     def move_to_commit(self, commit):
         os.chdir(DJANGO_SERVICE_PATH)
-        Log.success(subprocess.getoutput('git log -n1 --format="%h"'))
+        Log.success(subprocess.getoutput('git log -n10 --format="%h"'))
         os.system(f'git checkout {commit}')
 
     def move_to_release_commit(self):
