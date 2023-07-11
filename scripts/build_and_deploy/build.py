@@ -62,7 +62,7 @@ class Git:
 def read_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--rollback-commit', help='If You Deploy Failed You Can Rollback To')
+    parser.add_argument('--tag-name', help='If You Deploy Failed You Can Rollback To')
     parser.add_argument('--django-service', action='store_true', help='Build Django Service')
     parser.add_argument('--vision-service', action='store_true',  help='Build Vision Service')
     parser.add_argument('--verme-service', action='store_true', help='Build Verme Service')
@@ -71,27 +71,21 @@ def read_args():
 
 
 def build_and_push_image(path_to_move, image_name, tag_name):
-    Log.info(f'1 {Git.get_current_commit()}')
     image_with_tag = f'{image_name}:{tag_name}'
-    Log.info(f'2 {Git.get_current_commit()}')
 
     os.system(f'cd {path_to_move}')
-    Log.info(f'3 {Git.get_current_commit()}')
 
     os.system(f'docker build --tag={image_with_tag} .')
-    Log.info(f'4 {Git.get_current_commit()}')
     os.system(f'docker tag {image_with_tag} {REGISTRY_NAME}/{image_with_tag}')
-    Log.info(f'5 {Git.get_current_commit()}')
     os.system(f'docker push {REGISTRY_NAME}/{image_with_tag}')
-    Log.info(f'6 {Git.get_current_commit()}')
 
     Log.success(f'finished to build image: {image_name} with tag: {tag_name} and commit: {Git.get_current_commit()}')
 
 
 def build_and_push():
     args = read_args()
-    if not args.rollback_commit:
-        Log.error('Нужно указать коммит, на который нужно откатиться в случае проблем деплоя: git log --oneline')
+    if not args.tag_name:
+        Log.error('Нужно указать название тэга: master или rollback')
         return
 
     git = Git()
@@ -107,12 +101,11 @@ def build_and_push():
         build_and_push_image(DJANGO_SERVICE_PATH, DJANGO_SERVICE_IMAGE_NAME, ROLLBACK_TAG)
 
     if args.vision_service:
-        git.move_to_release_commit()
-        build_and_push_image(VISION_SERVICE_PATH, VISION_SERVICE_IMAGE_NAME, RELEASE_TAG)
+        # git.move_to_release_commit()
+        build_and_push_image(VISION_SERVICE_PATH, VISION_SERVICE_IMAGE_NAME, args.tag_name)
 
-        # Log.success(f'before {os.getcwd()}')
-        git.move_to_commit(args.rollback_commit)
-        build_and_push_image(VISION_SERVICE_PATH, VISION_SERVICE_IMAGE_NAME, ROLLBACK_TAG)
+        # git.move_to_commit(args.rollback_commit)
+        # build_and_push_image(VISION_SERVICE_PATH, VISION_SERVICE_IMAGE_NAME, ROLLBACK_TAG)
 
     if args.verme_service:
         git.move_to_release_commit()
