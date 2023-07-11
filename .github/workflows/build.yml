@@ -12,13 +12,18 @@ on:
         type: string
         description: 'rollback commit'
         required: true
-      service_name:
-        type: choice
-        description: 'service'
-        options:
-          - django
-          - verme
-          - vision
+      django:
+        type: boolean
+        description: 'Django service'
+        default: 'true'
+      verme:
+        type: boolean
+        description: 'Verme service'
+        default: 'false'
+      vision:
+        type: boolean
+        description: 'Vision service'
+        default: 'false'
 
 
 jobs:
