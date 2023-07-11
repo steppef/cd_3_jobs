@@ -69,13 +69,19 @@ def read_args():
 
 
 def build_and_push_image(path_to_move, image_name, tag_name):
+    Log.info(f'1 {Git.get_current_commit()}')
     image_with_tag = f'{image_name}:{tag_name}'
+    Log.info(f'2 {Git.get_current_commit()}')
 
     os.system(f'cd {path_to_move}')
+    Log.info(f'3 {Git.get_current_commit()}')
 
     os.system(f'docker build --tag={image_with_tag} .')
+    Log.info(f'4 {Git.get_current_commit()}')
     os.system(f'docker tag {image_with_tag} {REGISTRY_NAME}/{image_with_tag}')
+    Log.info(f'5 {Git.get_current_commit()}')
     os.system(f'docker push {REGISTRY_NAME}/{image_with_tag}')
+    Log.info(f'6 {Git.get_current_commit()}')
 
     Log.success(f'finished to build image: {image_name} with tag: {tag_name} and commit: {Git.get_current_commit()}')
 
@@ -89,12 +95,13 @@ def build_and_push():
     git = Git()
 
     if args.django_service:
-        git.move_to_release_commit()
-        build_and_push_image(DJANGO_SERVICE_PATH, DJANGO_SERVICE_IMAGE_NAME, RELEASE_TAG)
+        # git.move_to_release_commit()
+        # build_and_push_image(DJANGO_SERVICE_PATH, DJANGO_SERVICE_IMAGE_NAME, RELEASE_TAG)
 
         Log.success(f'roll {args.rollback_commit}')
 
         git.move_to_commit(args.rollback_commit)
+        Log.info(f'0 {Git.get_current_commit()}')
         build_and_push_image(DJANGO_SERVICE_PATH, DJANGO_SERVICE_IMAGE_NAME, ROLLBACK_TAG)
 
     if args.vision_service:
