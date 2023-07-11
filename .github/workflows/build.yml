@@ -114,3 +114,4 @@ jobs:
           file: ./src/vision/Dockerfile
           push: true
           tags: kairkhan/vision:rollback
+
