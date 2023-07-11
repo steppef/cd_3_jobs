@@ -15,7 +15,8 @@ VERME_SERVICE_PATH = os.path.abspath('../../src/verme')
 RELEASE_TAG = 'master'
 ROLLBACK_TAG = 'rollback'
 
-RELEASE_GIT_BRANCH = 'main'
+# RELEASE_GIT_BRANCH = 'main'
+RELEASE_GIT_BRANCH = 'master'
 
 
 class Log:
