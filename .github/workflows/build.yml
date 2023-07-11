@@ -34,6 +34,8 @@ jobs:
     # Runs a single command using the runners shell
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        ref: ${{ inputs.rollback_commit }}
     - name: Check commits
       run: git log --pretty=oneline --abbrev-commit
     - name: Build and push django service
