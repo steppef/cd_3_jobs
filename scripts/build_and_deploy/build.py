@@ -45,6 +45,7 @@ class Git:
 
     def move_to_commit(self, commit):
         os.chdir(DJANGO_SERVICE_PATH)
+        Log.success(f'after {os.getcwd()}')
         os.system(f'git checkout {commit}')
 
     def move_to_release_commit(self):
