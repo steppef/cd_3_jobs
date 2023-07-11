@@ -89,6 +89,8 @@ def build_and_push():
         git.move_to_release_commit()
         build_and_push_image(DJANGO_SERVICE_PATH, DJANGO_SERVICE_IMAGE_NAME, RELEASE_TAG)
 
+        Log.success(f'roll {args.rollback_commit}')
+
         git.move_to_commit(args.rollback_commit)
         build_and_push_image(DJANGO_SERVICE_PATH, DJANGO_SERVICE_IMAGE_NAME, ROLLBACK_TAG)
 
