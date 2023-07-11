@@ -74,7 +74,7 @@ jobs:
 
     
 
-#    - name: Build and push django
+#    - name: Build and push djangoss
 #      run: cd scripts/build_and_deploy && python3 build.py --tag-name=master --vision-service
 
   build_rollback_commit:
