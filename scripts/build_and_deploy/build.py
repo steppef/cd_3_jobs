@@ -2,8 +2,8 @@ import argparse
 import subprocess
 import os
 
-REGISTRY_NAME = 'easily2020'
-REGISTRY_USERNAME = 'easily2020'
+REGISTRY_NAME = 'kairkhan'
+REGISTRY_USERNAME = 'kairkhan'
 
 DJANGO_SERVICE_IMAGE_NAME = 'back_end'
 DJANGO_SERVICE_PATH = os.path.abspath('../../')
