@@ -51,9 +51,9 @@ class Git:
 
     @classmethod
     def get_current_commit(cls):
-        Log.error(subprocess.getoutput('git log -n1 --format="%h"'))
+        # Log.error(subprocess.getoutput('git log -n1 --format="%h"'))
         os.chdir(DJANGO_SERVICE_PATH)
-        Log.error(subprocess.getoutput('git log -n1 --format="%h"'))
+        # Log.error(subprocess.getoutput('git log -n1 --format="%h"'))
         return subprocess.getoutput('git log -n1 --format="%h"')
 
 
@@ -95,8 +95,8 @@ def build_and_push():
     git = Git()
 
     if args.django_service:
-        # git.move_to_release_commit()
-        # build_and_push_image(DJANGO_SERVICE_PATH, DJANGO_SERVICE_IMAGE_NAME, RELEASE_TAG)
+        git.move_to_release_commit()
+        build_and_push_image(DJANGO_SERVICE_PATH, DJANGO_SERVICE_IMAGE_NAME, RELEASE_TAG)
 
         Log.success(f'roll {args.rollback_commit}')
 
