@@ -26,14 +26,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout release commit
       uses: actions/checkout@v3
 
 #    - name: Move to working dir
 #      run: cd scripts/build_and_deploy
 
     - name: Build and push django
-      run: cd scripts/build_and_deploy && python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
+      run: cd scripts/build_and_deploy && python3 build.py --tag-name=master --vision-service
 
   build_rollback_commit:
     runs-on: ubuntu-latest
@@ -48,4 +48,4 @@ jobs:
 #        run: cd scripts/build_and_deploy
 
       - name: Build and push django
-        run: cd scripts/build_and_deploy && python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
+        run: cd scripts/build_and_deploy && python3 build.py --tag-name=rollback --vision-service
