@@ -46,7 +46,7 @@ jobs:
       uses: docker/setup-buildx-action@v2
 
     - name: Build and push django
-      if: ${{ inputs.django == 'true' }}
+      if: ${{ inputs.django }} == 'true'
       uses: docker/build-push-action@v4
       with:
         context: .
@@ -55,7 +55,7 @@ jobs:
         tags: kairkhan/back_end:master
 
     - name: Build and push verme
-      if: ${{ inputs.verme == 'true' }}
+      if: ${{ inputs.verme }} == 'true'
       uses: docker/build-push-action@v4
       with:
         context: ./src/verme
@@ -64,7 +64,7 @@ jobs:
         tags: kairkhan/verme:master
 
     - name: Build and push vision
-      if: ${{ inputs.vision == 'true' }}
+      if: ${{ inputs.vision }} == 'true'
       uses: docker/build-push-action@v4
       with:
         context: ./src/vision
@@ -98,7 +98,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build and push django
-        if: ${{ inputs.django == 'true' }}
+        if: ${{ inputs.django }} == 'true'
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -107,7 +107,7 @@ jobs:
           tags: kairkhan/back_end:rollback
 
       - name: Build and push verme
-        if: ${{ inputs.verme == 'true' }}
+        if: ${{ inputs.verme }} == 'true'
         uses: docker/build-push-action@v4
         with:
           context: ./src/verme
@@ -116,7 +116,7 @@ jobs:
           tags: kairkhan/verme:rollback
 
       - name: Build and push vision
-        if: ${{ inputs.vision == 'true' }}
+        if: ${{ inputs.vision }} == 'true'
         uses: docker/build-push-action@v4
         with:
           context: ./src/vision
