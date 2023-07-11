@@ -43,7 +43,7 @@ jobs:
       uses: docker/setup-buildx-action@v2
 
     - name: Build and push django
-      if: ${{ inputs.django == 'true' }}
+      if: ${{ inputs.django }}
       uses: docker/build-push-action@v4
       with:
         context: .
@@ -52,7 +52,7 @@ jobs:
         tags: kairkhan/back_end:master
 
     - name: Build and push verme
-      if: ${{ inputs.verme == 'true' }}
+      if: ${{ inputs.verme }}
       uses: docker/build-push-action@v4
       with:
         context: .
@@ -61,7 +61,7 @@ jobs:
         tags: kairkhan/verme:master
 
     - name: Build and push vision
-      if: ${{ inputs.vision == 'true' }}
+      if: ${{ inputs.vision }}
       uses: docker/build-push-action@v4
       with:
         context: .
