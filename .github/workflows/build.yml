@@ -14,15 +14,15 @@ on:
         required: true
       django:
         type: boolean
-        description: 'Django service'
+        description: 'Django'
         default: 'true'
       verme:
         type: boolean
-        description: 'Verme service'
+        description: 'Verme'
         default: 'false'
       vision:
         type: boolean
-        description: 'Vision service'
+        description: 'Vision'
         default: 'false'
 
 
