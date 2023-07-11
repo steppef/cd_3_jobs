@@ -29,11 +29,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Move to working dir
-      run: cd scripts/build_and_deploy
+#    - name: Move to working dir
+#      run: cd scripts/build_and_deploy
 
     - name: Build and push django
-      run: python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
+      run: cd scripts/build_and_deploy && python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
 
   build_rollback_commit:
     runs-on: ubuntu-latest
@@ -44,8 +44,8 @@ jobs:
         with:
           ref: ${{ inputs.rollback_commit }}
 
-      - name: Move to working dir
-        run: cd scripts/build_and_deploy
+#      - name: Move to working dir
+#        run: cd scripts/build_and_deploy
 
       - name: Build and push django
-        run: python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
+        run: cd scripts/build_and_deploy && python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
