@@ -20,24 +20,32 @@ on:
           - verme
           - vision
 
-        
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "greet"
-  build:
-    # The type of runner that the job will run on
+  build_release_commit:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Runs a single command using the runners shell
     - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ inputs.rollback_commit }}
-    - name: Check commits
-      run: git log --pretty=oneline --abbrev-commit
-    - name: Build and push django service
-      run: cd scripts/build_and_deploy && python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
-#      run: echo "Hello ${{ inputs.rollback_commit }} ${{ inputs.service_name }}"
+      uses: actions/checkout@v3
+
+    - name: Move to working dir
+      run: cd scripts/build_and_deploy
+
+    - name: Build and push django
+      run: python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
+
+  build_rollback_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout rollback commit
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.rollback_commit }}
+
+      - name: Move to working dir
+        run: cd scripts/build_and_deploy
+
+      - name: Build and push django
+        run: python3 build.py --rollback-commit=${{ inputs.rollback_commit }} --vision-service
