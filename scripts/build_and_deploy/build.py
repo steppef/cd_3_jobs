@@ -43,6 +43,7 @@ class Git:
         self.release_commit = self.get_current_commit()
 
     def move_to_commit(self, commit):
+        Log.info(f'commit {commit}')
         os.system(f'git checkout {commit}')
 
     def move_to_release_commit(self):
