@@ -50,7 +50,9 @@ class Git:
 
     @classmethod
     def get_current_commit(cls):
+        Log.error(subprocess.getoutput('git log -n1 --format="%h"'))
         os.chdir(DJANGO_SERVICE_PATH)
+        Log.error(subprocess.getoutput('git log -n1 --format="%h"'))
         return subprocess.getoutput('git log -n1 --format="%h"')
 
 
