@@ -45,7 +45,7 @@ jobs:
           ref: ${{ inputs.rollback_commit }}
 
 #      - name: Move to working dir
-#        run: cd scripts/build_and_deploy
+#        run: cd scripts/build_and_deployy
 
       - name: Build and push django
         run: cd scripts/build_and_deploy && python3 build.py --tag-name=rollback --vision-service
