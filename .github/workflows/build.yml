@@ -1,12 +1,7 @@
-# This is a basic workflow that is manually triggered
-
 name: Build workflow
 
-# Controls when the action will run. Workflow runs when manually triggered using the UIs
-# or API.
 on:
   workflow_dispatch:
-    # Inputs the workflow accepts.
     inputs:
       rollback_commit:
         type: string
@@ -19,9 +14,11 @@ on:
       verme:
         type: boolean
         description: 'Verme'
+        default: false
       vision:
         type: boolean
         description: 'Vision'
+        default: false
 
 
 jobs:
@@ -70,10 +67,6 @@ jobs:
         push: true
         tags: kairkhan/vision:master
 
-    
-
-#    - name: Build and push djangoss
-#      run: cd scripts/build_and_deploy && python3 build.py --tag-name=master --vision-service
 
   build_rollback_commit:
     runs-on: ubuntu-latest
@@ -121,6 +114,3 @@ jobs:
           file: ./src/vision/Dockerfile
           push: true
           tags: kairkhan/vision:rollback
-
-#      - name: Build and push djangos
-#        run: cd scripts/build_and_deploy && python3 build.py --tag-name=rollback --vision-service
