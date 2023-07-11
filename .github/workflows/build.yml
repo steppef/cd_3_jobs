@@ -34,11 +34,48 @@ jobs:
     - name: Checkout release commit
       uses: actions/checkout@v3
 
-#    - name: Move to working dir
-#      run: cd scripts/build_and_deploy
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+#        username: ${{ secrets.DOCKERHUB_USER }}
+        username: kairkhan
+        password: dckr_pat_gwC3WsWgNKAZ_iQ3dUXy_4zXl9k
+#        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
 
     - name: Build and push django
-      run: cd scripts/build_and_deploy && python3 build.py --tag-name=master --vision-service
+      if: ${{ inputs.django == 'true' }}
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: kairkhan/back_end:master
+
+    - name: Build and push verme
+      if: ${{ inputs.verme == 'true' }}
+      uses: docker/build-push-action@v4
+      with:
+        context: ./src/verme
+        file: ./Dockerfile
+        push: true
+        tags: kairkhan/verme:master
+
+    - name: Build and push vision
+      if: ${{ inputs.vision == 'true' }}
+      uses: docker/build-push-action@v4
+      with:
+        context: ./src/vision
+        file: ./Dockerfile
+        push: true
+        tags: kairkhan/vision:master
+
+    
+
+#    - name: Build and push django
+#      run: cd scripts/build_and_deploy && python3 build.py --tag-name=master --vision-service
 
   build_rollback_commit:
     runs-on: ubuntu-latest
@@ -49,8 +86,43 @@ jobs:
         with:
           ref: ${{ inputs.rollback_commit }}
 
-#      - name: Move to working dir
-#        run: cd scripts/build_and_deployy
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+#        username: ${{ secrets.DOCKERHUB_USER }}
+          username: kairkhan
+          password: dckr_pat_gwC3WsWgNKAZ_iQ3dUXy_4zXl9k
+#        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Build and push django
-        run: cd scripts/build_and_deploy && python3 build.py --tag-name=rollback --vision-service
+        if: ${{ inputs.django == 'true' }}
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: kairkhan/back_end:rollback
+
+      - name: Build and push verme
+        if: ${{ inputs.verme == 'true' }}
+        uses: docker/build-push-action@v4
+        with:
+          context: ./src/verme
+          file: ./Dockerfile
+          push: true
+          tags: kairkhan/verme:rollback
+
+      - name: Build and push vision
+        if: ${{ inputs.vision == 'true' }}
+        uses: docker/build-push-action@v4
+        with:
+          context: ./src/vision
+          file: ./Dockerfile
+          push: true
+          tags: kairkhan/vision:rollback
+
+#      - name: Build and push django
+#        run: cd scripts/build_and_deploy && python3 build.py --tag-name=rollback --vision-service
