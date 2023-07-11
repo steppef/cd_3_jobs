@@ -44,7 +44,7 @@ class Git:
         self.release_commit = self.get_current_commit()
 
     def move_to_commit(self, commit):
-        Log.info(f'commit {commit}')
+        os.chdir(DJANGO_SERVICE_PATH)
         os.system(f'git checkout {commit}')
 
     def move_to_release_commit(self):
@@ -109,6 +109,7 @@ def build_and_push():
         git.move_to_release_commit()
         build_and_push_image(VISION_SERVICE_PATH, VISION_SERVICE_IMAGE_NAME, RELEASE_TAG)
 
+        Log.success(f'before {os.getcwd()}')
         git.move_to_commit(args.rollback_commit)
         build_and_push_image(VISION_SERVICE_PATH, VISION_SERVICE_IMAGE_NAME, ROLLBACK_TAG)
 
