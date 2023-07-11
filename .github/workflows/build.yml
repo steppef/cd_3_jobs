@@ -15,15 +15,12 @@ on:
       django:
         type: boolean
         description: 'Django'
-        default: 'true'
       verme:
         type: boolean
         description: 'Verme'
-        default: 'false'
       vision:
         type: boolean
         description: 'Vision'
-        default: 'false'
 
 
 jobs:
