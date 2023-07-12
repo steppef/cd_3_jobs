@@ -1,4 +1,4 @@
-name: Deploy workflow
+name: Rollback workflow
 
 on:
   workflow_dispatch:
@@ -9,15 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: executing remote ssh deploy.sh script
+      - name: executing remote ssh rollback.sh script
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-#          password: ${{ secrets.SSH_PASSWORD }}
+         # password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            sh deploy.sh
+            sh rollback.sh
             exit
 
       - name: cleanup
