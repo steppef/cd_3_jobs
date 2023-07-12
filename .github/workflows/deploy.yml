@@ -17,7 +17,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
 #          password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            sh deploy.sh
+            ls .cache
             exit
 
       - name: cleanup
