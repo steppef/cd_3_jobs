@@ -25,7 +25,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-        # password: ${{ secrets.SSH_PASSWORD }}
+        # password: ${{ secretts.SSH_PASSWORD }}
           script: |
             sh rollback_migration.sh ${{ inputs.rollback_migration_app_name }} ${{ inputs.rollback_migration_number_before }}
             exit
