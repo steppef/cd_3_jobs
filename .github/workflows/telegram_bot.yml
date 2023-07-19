@@ -1,0 +1,27 @@
+name: Rollback workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  run_telegram_bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: executing remote ssh run telegram bot
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+         # password: ${{ secrets.SSH_PASSWORD }}}}}
+          script: |
+            cd ${{ secrets.WORK_DIR }}
+            docker-compose exec django python manage.py run_telegram_bot.py
+            exit
+
+      - name: cleanup
+        run: rm -rf ~/.ssh
+
+
