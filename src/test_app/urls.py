@@ -6,6 +6,10 @@ from django.urls import path, include
 def test_view(request):
     for k, v in request.META.items():
         print(f'key: {k} | value: {v}')
+        print(f'key: {k} | value: {v}')
+        print(f'key: {k} | value: {v}')
+        print(f'key: {k} | value: {v}')
+        print(f'key: {k} | value: {v}')
     return HttpResponse(f'<h1>{request.__dict__}</h1>')
 
 
