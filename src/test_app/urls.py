@@ -9,6 +9,7 @@ def test_view(request):
         print(f'key: {k} | value: {v}')
         print(f'key: {k} | value: {v}')
         print(f'key: {k} | value: {v}')
+        print(f'key: {k} | value: {v}')
     return HttpResponse(f'<h1>{request.__dict__}</h1>')
 
 
