@@ -6,7 +6,7 @@ name: Build workflow
 # or API.
 on:
   workflow_dispatch:
-    # Inputs the workflow accepts....
+    # Inputs the workflow accepts.......
     inputs:
       rollback_commit:
         type: string
