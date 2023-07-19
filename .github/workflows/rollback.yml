@@ -5,7 +5,7 @@ on:
 
 jobs:
 
-  deploy:
+  rollback:
     runs-on: ubuntu-latest
 
     steps:

@@ -15,7 +15,7 @@ on:
 
 jobs:
 
-  deploy:
+  rollback_migration:
     runs-on: ubuntu-latest
 
     steps:
