@@ -51,7 +51,7 @@ jobs:
       if: ${{ inputs.verme }}
       uses: docker/build-push-action@v4
       with:
-        context: ./src/verme/
+        context: ./verme/
         file: Dockerfile
         push: true
         tags: kairkhan/verme:master
