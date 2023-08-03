@@ -3,19 +3,25 @@ version: "3.7"
 services:
   postgres:
     container_name: cd_postgres
-    image: postgres:13-alpine
+    image: postgres:13
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
 
   django:
     container_name: cd_django
     build: ./
     volumes:
         - ./src:/src:rw
+    depends_on:
+      - postgres
     ports:
       - "8000:8000"
+    environment:
+      PROCESS: DEV_DJANGO
 
 #  nginx:
 #    restart: always

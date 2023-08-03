@@ -3,6 +3,10 @@
 from django.db import migrations, models
 
 
+def create_data(apps, schema_editor):
+    apps.get_model('books.Book').objects.create(title='asd', text='asd')
+
+
 class Migration(migrations.Migration):
 
     initial = True
@@ -26,4 +30,6 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(blank=True, max_length=255, null=True)),
             ],
         ),
+
+        migrations.RunPython(create_data)
     ]

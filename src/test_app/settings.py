@@ -77,13 +77,12 @@ WSGI_APPLICATION = 'test_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'db',
         'USER': 'user',
         'PASSWORD': 'password',
         'HOST': 'postgres',
         'PORT': '5432',
-        # 'ATOMIC_REQUESTS': True
     }
 }
 
