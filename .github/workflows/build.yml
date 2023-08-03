@@ -49,10 +49,11 @@ jobs:
 
     - name: Build and push verme
       if: ${{ inputs.verme }}
+      run: cd src/verme
       uses: docker/build-push-action@v4
       with:
-        context: ./verme
-        file: Dockerfile
+        context: .
+        file: ./src/verme/Dockerfile
         push: true
         tags: kairkhan/verme:master
 
