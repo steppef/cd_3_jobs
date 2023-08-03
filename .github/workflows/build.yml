@@ -47,9 +47,10 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USER }}/back_end:master
 
+    - name: cd verme
+      run: cd src/verme
     - name: Build and push verme
       if: ${{ inputs.verme }}
-      run: cd src/verme
       uses: docker/build-push-action@v4
       with:
         context: .
