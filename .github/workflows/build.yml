@@ -32,7 +32,7 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: kairkhan24
+        username: kairkhan
         password: dckr_pat_cUCbTzle3Gn5ql7CpIuuh2ujQZI
 
     - name: Set up Docker Buildx
@@ -54,7 +54,7 @@ jobs:
         context: ./src/verme/
         file: Dockerfile
         push: true
-        tags: kairkhan24/verme:master
+        tags: kairkhan/verme:master
 
     - name: Build and push vision
       if: ${{ inputs.vision }}
