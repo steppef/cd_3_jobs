@@ -2,8 +2,8 @@ version: "3.7"
 
 services:
   postgres:
-    container_name: cd_postgres
-    image: postgres:13
+    container_name: postgres
+    image: postgres:13-alpine
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: user

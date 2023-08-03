@@ -7,4 +7,5 @@ class Book(models.Model):
 
 
 class Tag(models.Model):
+    book = models.ForeignKey(to=Book, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
