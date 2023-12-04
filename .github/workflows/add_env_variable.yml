@@ -1,4 +1,4 @@
-name: Rollback workflow
+name: Add env
 
 on:
   workflow_dispatch:
