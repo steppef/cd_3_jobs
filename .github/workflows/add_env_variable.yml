@@ -22,7 +22,7 @@ jobs:
 #          key: ${{ secrets.SSH_KEY }}
           password: E0JklNc3lwFzxdZXCmkJUx4=
           script: |
-            sh add_env_variable.sh
+            sh add_env_variable.sh ${{ inputs.github_secret_name }}=${{ secrets[inputs.github_secret_name] }}$
             exit
 
       - name: cleanup
