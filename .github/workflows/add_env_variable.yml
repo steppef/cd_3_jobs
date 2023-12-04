@@ -1,0 +1,31 @@
+name: Rollback workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      github_secret_name:
+        type: string
+        description: 'GITHUB SECRET NAME (Create if not exists)'
+        required: true
+
+jobs:
+
+  rollback:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: executing remote ssh rollback.sh script
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: 77.243.80.50
+          username: ubuntu
+#          key: ${{ secrets.SSH_KEY }}
+          password: E0JklNc3lwFzxdZXCmkJUx4=
+          script: |
+            sh add_env_variable.sh
+            exit
+
+      - name: cleanup
+        run: rm -rf ~/.ssh
+
+
