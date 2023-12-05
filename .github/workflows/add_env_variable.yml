@@ -1,16 +1,16 @@
-name: Add env
+name: Update env variable workflow `
 
 on:
   workflow_dispatch:
     inputs:
       github_secret_name:
         type: string
-        description: 'GITHUB SECRET NAME (Create if not exists)'
+        description: 'Variable name from Github Secrets'
         required: true
 
 jobs:
 
-  rollback:
+  update_env_variable:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,10 +22,8 @@ jobs:
 #          key: ${{ secrets.SSH_KEY }}
           password: E0JklNc3lwFzxdZXCmkJUx4=
           script: |
-            sh add_env_variable.sh ${{ inputs.github_secret_name }}=${{ secrets[inputs.github_secret_name] }}
+            sh update_env_variable.sh ${{ inputs.github_secret_name }}=${{ secrets[inputs.github_secret_name] }}
             exit
 
       - name: cleanup
         run: rm -rf ~/.ssh
-
-
