@@ -11,3 +11,8 @@ class BookAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+
+@admin.register(Product)
+class CarAdmin(admin.ModelAdmin):
+    pass
